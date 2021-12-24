@@ -5,19 +5,28 @@ local activeLaser = false
 local deleteLaser = false
 local isUpdating = false
 local text = {}
+local permissionLevel = nil
 
 RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
     Wait(100)
     QBCore.Functions.TriggerCallback('nui_drawtext:server:getText', function(data)
         text = data
     end)
+    QBCore.Functions.TriggerCallback('nui_drawtext:server:GetPermissions', function(permission)
+        permissionLevel = permission
+    end)
 end)
 
-AddEventHandler('onResourceStart', function()
-    Wait(2000)
-    QBCore.Functions.TriggerCallback('nui_drawtext:server:getText', function(data)
-        text = data
-    end)
+AddEventHandler('onResourceStart', function(resourceName)
+    if resourceName == GetCurrentResourceName() then
+        Wait(2000)
+        QBCore.Functions.TriggerCallback('nui_drawtext:server:getText', function(data)
+            text = data
+        end)
+        QBCore.Functions.TriggerCallback('nui_drawtext:server:GetPermissions', function(permission)
+            permissionLevel = permission
+        end)
+    end
 end)
 
 RegisterNUICallback('closeMenu', function()
@@ -79,6 +88,7 @@ end
 
 RegisterCommand('activeLaser', function()
     Wait(50)
+    if (Config.AdminOnly and permissionLevel == 'user') then return end
     activeLaser = not activeLaser
     TriggerEvent('nui_drawtext:client:laserAdd')
 end)
@@ -114,6 +124,7 @@ end)
 
 RegisterCommand('deleteLaser', function()
     Wait(50)
+    if (Config.AdminOnly and permissionLevel == 'user') then return end
     deleteLaser = not deleteLaser
     TriggerEvent('nui_drawtext:client:deletelaser')
 end)

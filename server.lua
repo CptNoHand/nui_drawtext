@@ -31,6 +31,11 @@ QBCore.Functions.CreateCallback('nui_drawtext:server:getText', function(source, 
     cb(text)
 end)
 
+QBCore.Functions.CreateCallback('nui_drawtext:server:GetPermissions', function(source, cb)
+    local permissionLevel = QBCore.Functions.GetPermission(source)
+    cb(permissionLevel)
+end)
+
 RegisterNetEvent('nui_drawtext:server:getAllDrawText', function()
     local src = source
     local tablelength = 0
