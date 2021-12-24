@@ -88,13 +88,9 @@ end
 
 RegisterCommand('activeLaser', function()
     Wait(50)
-    if (Config.AdminOnly and permissionLevel ~= 'user') then
-        activeLaser = not activeLaser
-        TriggerEvent('nui_drawtext:client:laser')
-    elseif not Config.AdminOnly then
-        activeLaser = not activeLaser
-        TriggerEvent('nui_drawtext:client:laser')
-    end
+    if (Config.AdminOnly and permissionLevel == 'user') then return end
+    activeLaser = not activeLaser
+    TriggerEvent('nui_drawtext:client:laser')
 end)
 
 RegisterNetEvent('nui_drawtext:client:laserAdd', function()
@@ -128,13 +124,9 @@ end)
 
 RegisterCommand('deleteLaser', function()
     Wait(50)
-    if (Config.AdminOnly and permissionLevel ~= 'user') then
-        deleteLaser = not deleteLaser
-        TriggerEvent('nui_drawtext:client:deletelaser')
-    elseif not Config.AdminOnly then
-        deleteLaser = not deleteLaser
-        TriggerEvent('nui_drawtext:client:deletelaser')
-    end
+    if (Config.AdminOnly and permissionLevel == 'user') then return end
+    deleteLaser = not deleteLaser
+    TriggerEvent('nui_drawtext:client:deletelaser')
 end)
 
 RegisterNetEvent('nui_drawtext:client:deletelaser', function()
