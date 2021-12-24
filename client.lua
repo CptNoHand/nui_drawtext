@@ -13,11 +13,13 @@ RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
     end)
 end)
 
-AddEventHandler('onResourceStart', function()
-    Wait(2000)
-    QBCore.Functions.TriggerCallback('nui_drawtext:server:getText', function(data)
-        text = data
-    end)
+AddEventHandler('onResourceStart', function(resourceName)
+    if resourceName == GetCurrentResourceName() then
+        Wait(2000)
+        QBCore.Functions.TriggerCallback('nui_drawtext:server:getText', function(data)
+            text = data
+        end)
+    end
 end)
 
 RegisterNUICallback('closeMenu', function()
