@@ -35,8 +35,8 @@ RegisterNUICallback('closeMenu', function()
     SetNuiFocus(false, false)
 end) 
 
-RegisterKeyMapping('activeLaser', 'Open Menu', 'keyboard', Config.OpenKeyActiveLaser)
-RegisterKeyMapping('deleteLaser', 'Open Menu', 'keyboard', Config.OpenKeyDeleteLaser)
+RegisterKeyMapping('activeLaser', 'Create Key', 'keyboard', Config.OpenKeyActiveLaser)
+RegisterKeyMapping('deleteLaser', 'Delete Key', 'keyboard', Config.OpenKeyDeleteLaser)
 
 local function RotationToDirection(rotation)
 	local adjustedRotation =
@@ -88,7 +88,10 @@ end
 
 RegisterCommand('activeLaser', function()
     Wait(50)
-    if (Config.AdminOnly and permissionLevel == 'user') then return end
+    if (Config.AdminOnly and permissionLevel == 'user') then 
+        TriggerEvent('QBCore:Notify', 'Must be an Admin to use create laser', 'error')
+        return 
+    end
     activeLaser = not activeLaser
     TriggerEvent('nui_drawtext:client:laserAdd')
 end)
@@ -124,7 +127,10 @@ end)
 
 RegisterCommand('deleteLaser', function()
     Wait(50)
-    if (Config.AdminOnly and permissionLevel == 'user') then return end
+    if (Config.AdminOnly and permissionLevel == 'user') then 
+        TriggerEvent('QBCore:Notify', 'Must be an Admin to use delete laser', 'error')
+        return 
+    end
     deleteLaser = not deleteLaser
     TriggerEvent('nui_drawtext:client:deletelaser')
 end)
