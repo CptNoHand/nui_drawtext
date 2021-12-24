@@ -52,6 +52,7 @@ https://user-images.githubusercontent.com/91661118/146716456-b08391b6-9fde-40ba-
 
 # Change Logs
 ### 1.1
+* Added Admin pnly configurable option
 * Fixed emojis not displaying on drawtext (might still break on resource restart)
 * Added delete menu button
 * Added delete laser pointer
