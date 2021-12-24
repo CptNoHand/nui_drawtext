@@ -90,7 +90,7 @@ RegisterCommand('activeLaser', function()
     Wait(50)
     if (Config.AdminOnly and permissionLevel == 'user') then return end
     activeLaser = not activeLaser
-    TriggerEvent('nui_drawtext:client:laser')
+    TriggerEvent('nui_drawtext:client:laserAdd')
 end)
 
 RegisterNetEvent('nui_drawtext:client:laserAdd', function()
