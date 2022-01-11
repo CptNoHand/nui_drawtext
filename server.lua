@@ -2,7 +2,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local text = {}
 
 local updateDrawText = function()
-    local result = exports.oxmysql:executeSync('SELECT * FROM draw_text', {})
+    local result = MySQL.Sync.fetchAll('SELECT * FROM draw_text', {})
     if result[1] then
         for k, v in pairs(result) do
             params={
@@ -39,13 +39,13 @@ end)
 RegisterNetEvent('nui_drawtext:server:getAllDrawText', function()
     local src = source
     local tablelength = 0
-    local result = exports.oxmysql:executeSync('SELECT * FROM draw_text', {})
+    local result = MySQL.Sync.fetchAll('SELECT * FROM draw_text', {})
     local drawtext =  TriggerClientEvent("nui_drawtext:client:getClosestDrawText", src, result)
 
 end)
 
 RegisterNetEvent('nui_drawtext:server:deleteDrawText', function(closestDrawText)
-    exports.oxmysql:execute('DELETE FROM draw_text WHERE id = ?', {closestDrawText})
+    MySQL.Async.execute('DELETE FROM draw_text WHERE id = ?', {closestDrawText})
     Wait(100)
     text = {}
     updateDrawText()
@@ -54,7 +54,7 @@ end)
 
 RegisterNetEvent('nui_drawtext:server:drawText', function(content, font, xyz, rgb, scaleMultiplier, radius)
     local ped = QBCore.Functions.GetPlayer(source)
-    exports.oxmysql:insert('INSERT INTO draw_text (content, font, color, creator, radius, xyz, scale_multiplier ) VALUES (?,?, ?, ?, ?, ?, ?)', {
+    MySQL.Async.insert('INSERT INTO draw_text (content, font, color, creator, radius, xyz, scale_multiplier ) VALUES (?,?, ?, ?, ?, ?, ?)', {
         content,
         font,
         rgb,
